@@ -4,7 +4,7 @@
 
 constexpr std::array<int, 10> input = {199, 200, 208, 210, 200, 207, 240, 269, 260, 263};
 
-int main()
+void firstPart()
 {
     std::optional<int> previousNumber;
     size_t numberOfIncrements{0};
@@ -22,6 +22,11 @@ int main()
         previousNumber = number;
     }
 
-    std::cout << "The solution is: " << numberOfIncrements << std::endl;
+    std::cout << "The solution of the example for the first part is: " << numberOfIncrements << std::endl;
+}
+
+int main()
+{
+    firstPart();
     return 0;
 }
