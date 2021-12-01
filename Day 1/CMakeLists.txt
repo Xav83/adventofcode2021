@@ -7,3 +7,6 @@ set_property(TARGET day1_example PROPERTY CXX_STANDARD 17)
 
 add_executable(day1_part1 src/part1.cpp)
 set_property(TARGET day1_part1 PROPERTY CXX_STANDARD 17)
+
+add_executable(day1_part2 src/part2.cpp)
+set_property(TARGET day1_part2 PROPERTY CXX_STANDARD 17)
