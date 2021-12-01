@@ -25,8 +25,31 @@ void firstPart()
     std::cout << "The solution of the example for the first part is: " << numberOfIncrements << std::endl;
 }
 
+void secondPart()
+{
+    std::optional<int> previousSum;
+    size_t numberOfIncrements{0};
+    for(auto index = 0; index <= input.size() - 3 ; ++index)
+    {
+        const auto sum = input[index] + input[index + 1] + input[index + 2];
+        if(not previousSum.has_value())
+        {
+            previousSum = sum;
+            continue;
+        }
+        if(*previousSum < sum)
+        {
+            ++numberOfIncrements;
+        }
+        previousSum = sum;
+    }
+
+    std::cout << "The solution of the example for the second part is: " << numberOfIncrements << std::endl;
+}
+
 int main()
 {
     firstPart();
+    secondPart();
     return 0;
 }
