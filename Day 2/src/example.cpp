@@ -22,7 +22,7 @@ int main()
         assert(false); // Unkwnow input
     }
 
-    std::cout << "The solution is:" << (horizontalPosition * depth) << std::endl;
+    std::cout << "The solution is: " << (horizontalPosition * depth) << std::endl;
 
     return 0;
 }
