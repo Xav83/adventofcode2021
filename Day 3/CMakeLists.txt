@@ -4,3 +4,6 @@ project(AdventOfCode_Day_3)
 
 add_executable(day3_example src/example.cpp)
 set_property(TARGET day3_example PROPERTY CXX_STANDARD 17)
+
+add_executable(day3_part1 src/part1.cpp)
+set_property(TARGET day3_part1 PROPERTY CXX_STANDARD 17)
