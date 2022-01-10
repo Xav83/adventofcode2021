@@ -58,8 +58,6 @@ void secondPart()
 {
     size_t oxygenGeneratorRating{0}, co2ScrubberRating{0};
 
-    std::array<Counter, input.front().size()> counters;
-
     std::vector<std::string_view> potentialsOxygenGeneratorRating(input.begin(), input.end());
     std::vector<std::string_view> potentialsCo2ScrubberRating(input.begin(), input.end());
 
@@ -86,14 +84,14 @@ void secondPart()
         {
             if(co2Counter.numberOfZero > co2Counter.numberOfOne)
             {
-                /* removes the binaries with a 0 in this position for CO2 */;
+                /* removes the binaries with a 0 in this position for CO2 */
                 potentialsCo2ScrubberRating.erase(std::remove_if(potentialsCo2ScrubberRating.begin(), potentialsCo2ScrubberRating.end(),
                                                                     [index](const auto& binary){ return binary[index] == '0'; }),
                                                     potentialsCo2ScrubberRating.end());
             }
             else
             {
-                /* removes the binaries with a 1 in this position for CO2 */;
+                /* removes the binaries with a 1 in this position for CO2 */
                 potentialsCo2ScrubberRating.erase(std::remove_if(potentialsCo2ScrubberRating.begin(), potentialsCo2ScrubberRating.end(),
                                                                     [index](const auto& binary){ return binary[index] == '1'; }),
                                                     potentialsCo2ScrubberRating.end());
@@ -104,14 +102,14 @@ void secondPart()
         {
             if(o2Counter.numberOfZero > o2Counter.numberOfOne)
             {
-                /* removes the binaries with a 1 in this position for O2 */;
+                /* removes the binaries with a 1 in this position for O2 */
                 potentialsOxygenGeneratorRating.erase(std::remove_if(potentialsOxygenGeneratorRating.begin(), potentialsOxygenGeneratorRating.end(),
                                                                     [index](const auto& binary){ return binary[index] == '1'; }),
                                                     potentialsOxygenGeneratorRating.end());
             }
             else
             {
-                /* removes the binaries with a 0 in this position for O2 */;
+                /* removes the binaries with a 0 in this position for O2 */
                 potentialsOxygenGeneratorRating.erase(std::remove_if(potentialsOxygenGeneratorRating.begin(), potentialsOxygenGeneratorRating.end(),
                                                                     [index](const auto& binary){ return binary[index] == '0'; }),
                                                     potentialsOxygenGeneratorRating.end());
