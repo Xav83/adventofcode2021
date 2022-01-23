@@ -11,7 +11,12 @@ struct BoardNumber
 {
     constexpr BoardNumber(int number_) : number(number_) {}
 
-    const int number{0}; 
+    constexpr BoardNumber(const BoardNumber& other) : number(other.number), hasBeenFound(other.hasBeenFound) {}
+    constexpr BoardNumber(BoardNumber&& other) : number(other.number), hasBeenFound(std::move(other.hasBeenFound)) {}
+
+    constexpr BoardNumber& operator=(const BoardNumber& other) { number = other.number; hasBeenFound = other.hasBeenFound; return *this; }
+
+    int number{0}; 
     bool hasBeenFound{false};
 };
 
@@ -91,8 +96,48 @@ void firstPart()
     std::cout << "The solution is: " << (lastNumberCalled * unmarkedNumbersSum) << std::endl;
 }
 
+void secondPart()
+{
+    auto unmarkedNumbersSum{0}, lastNumberCalled{0};
+    std::vector<Board> playingBoards(std::begin(input_boards), std::end(input_boards));
+
+    for(size_t index{0}; index < input_numbers.size(); ++index)
+    {
+        lastNumberCalled = input_numbers[index];
+        for(auto& board : playingBoards)
+        {
+            updateBoard(board, lastNumberCalled);
+        }
+        auto winningBoardIterator = std::find_if(std::begin(playingBoards), std::end(playingBoards), [](const auto& board){ return isAWinningBoard(board); });
+
+        if(winningBoardIterator == std::end(playingBoards)) { continue; }
+        if(playingBoards.size() == 1) { break; }
+
+        playingBoards.erase(std::remove_if(std::begin(playingBoards), 
+                                          std::end(playingBoards),
+                                          [](const auto& board){ return isAWinningBoard(board); }),
+                            playingBoards.end());
+    }
+
+    auto winningBoardIterator = std::find_if(std::begin(playingBoards), std::end(playingBoards), [](const auto& board){ return isAWinningBoard(board); });
+
+    for(auto& row : *winningBoardIterator)
+    {
+        for(auto& boardNumber: row)
+        {
+            if(not boardNumber.hasBeenFound)
+            {
+                unmarkedNumbersSum += boardNumber.number;
+            }
+        }
+    }
+
+    std::cout << "The solution is: " << (lastNumberCalled * unmarkedNumbersSum) << std::endl;
+}
+
 int main()
 {
     firstPart();
+    secondPart();
     return 0;
 }
