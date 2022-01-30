@@ -30,7 +30,7 @@ constexpr int getGridSize() {
     return max;
 }
 
-void firstPart()
+int main()
 {
     std::array<std::array<int, getGridSize()>, getGridSize()> grid{0};
     for(const auto& line : input_lines)
@@ -57,10 +57,6 @@ void firstPart()
        return sum + std::count_if(std::begin(line), std::end(line), [](const auto& point){ return point >= 2; }); 
     });
     std::cout << "The solution is: " << numberOfDangerousAreas << std::endl;
-}
 
-int main()
-{
-    firstPart();
     return 0;
 }
