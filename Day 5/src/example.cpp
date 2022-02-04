@@ -32,7 +32,7 @@ Line {{5,5}, {8,2}},
 
 constexpr bool isVertical(const Line& line) { return line.start.y == line.end.y; }
 constexpr bool isHorizontal(const Line& line) { return line.start.x == line.end.x; }
-constexpr bool isDiagonal(const Line& line) { return std::abs(line.start.x - line.end.x) == std::abs(line.start.y - line.end.y); }
+bool isDiagonal(const Line& line) { return std::abs(line.start.x - line.end.x) == std::abs(line.start.y - line.end.y); }
 
 constexpr int getGridSize() {
     int max{0};
