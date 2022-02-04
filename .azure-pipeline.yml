@@ -2,6 +2,11 @@
 trigger:
   - main
 
+parameters:
+  - name: days
+    type: object
+    default: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5']
+
 jobs:
   - job: Advent_Of_Code
     strategy:
@@ -21,28 +26,8 @@ jobs:
     pool:
       vmImage: $(imageName)
     steps:
-      - script: |
-          mkdir -p "Day 1/build"
-          cd "Day 1/build"
-          cmake .. -G "$(generator)" && cmake --build .
-        displayName: Generates and Compile Day 1 solution
-      - script: |
-          mkdir -p "Day 2/build"
-          cd "Day 2/build"
-          cmake .. -G "$(generator)" && cmake --build .
-        displayName: Generates and Compile Day 1 solution
-      - script: |
-          mkdir -p "Day 3/build"
-          cd "Day 3/build"
-          cmake .. -G "$(generator)" && cmake --build .
-        displayName: Generates and Compile Day 1 solution
-      - script: |
-          mkdir -p "Day 4/build"
-          cd "Day 4/build"
-          cmake .. -G "$(generator)" && cmake --build .
-        displayName: Generates and Compile Day 1 solution
-      - script: |
-          mkdir -p "Day 5/build"
-          cd "Day 5/build"
-          cmake .. -G "$(generator)" && cmake --build .
-        displayName: Generates and Compile Day 1 solution
+      - ${{ each day in parameters.days }}:
+          - template: .azure-pipeline/build.yml
+            parameters:
+              generator: $(generator)
+              root_directory: ${{ day }}

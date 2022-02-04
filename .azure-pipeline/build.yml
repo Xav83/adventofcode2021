@@ -1,0 +1,20 @@
+---
+parameters:
+  - name: 'generator'
+    type: string
+  - name: 'root_directory'
+    type: string
+
+steps:
+  - script: |
+      cd "${{ parameters.root_directory }}"
+      mkdir build
+    displayName: Creates build folder
+  - script: |
+      cd "${{ parameters.root_directory }}/build"
+      cmake .. -G "${{ parameters.generator }}"
+    displayName: Generates the solution
+  - script: |
+      cd "${{ parameters.root_directory }}/build"
+      cmake --build .
+    displayName: Compiles the solution
