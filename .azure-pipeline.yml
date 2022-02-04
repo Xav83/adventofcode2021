@@ -1,0 +1,48 @@
+---
+trigger:
+  - main
+
+jobs:
+  - job: Advent_Of_Code
+    strategy:
+      matrix:
+        visual_studio_2019:
+          imageName: 'windows-2019'
+          generator: Visual Studio 16 2019
+        visual_studio_2022:
+          imageName: 'windows-2022'
+          generator: Visual Studio 17 2022
+        xcode:
+          imageName: 'macOS-11'
+          generator: Xcode
+        unix_makefiles:
+          imageName: 'ubuntu-20.04'
+          generator: Unix Makefiles
+    pool:
+      vmImage: $(imageName)
+    steps:
+      - script: |
+          mkdir -p "Day 1/build"
+          cd "Day 1/build"
+          cmake .. -G "$(generator)" && cmake --build .
+        displayName: Generates and Compile Day 1 solution
+      - script: |
+          mkdir -p "Day 2/build"
+          cd "Day 2/build"
+          cmake .. -G "$(generator)" && cmake --build .
+        displayName: Generates and Compile Day 1 solution
+      - script: |
+          mkdir -p "Day 3/build"
+          cd "Day 3/build"
+          cmake .. -G "$(generator)" && cmake --build .
+        displayName: Generates and Compile Day 1 solution
+      - script: |
+          mkdir -p "Day 4/build"
+          cd "Day 4/build"
+          cmake .. -G "$(generator)" && cmake --build .
+        displayName: Generates and Compile Day 1 solution
+      - script: |
+          mkdir -p "Day 5/build"
+          cd "Day 5/build"
+          cmake .. -G "$(generator)" && cmake --build .
+        displayName: Generates and Compile Day 1 solution
