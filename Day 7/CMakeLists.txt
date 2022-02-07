@@ -9,3 +9,7 @@ target_compile_options(day7_example PUBLIC $<$<CXX_COMPILER_ID:MSVC>: /permissiv
 add_executable(day7_part1 src/part1.cpp)
 set_property(TARGET day7_part1 PROPERTY CXX_STANDARD 17)
 target_compile_options(day7_part1 PUBLIC $<$<CXX_COMPILER_ID:MSVC>: /permissive->)
+
+add_executable(day7_part2 src/part2.cpp)
+set_property(TARGET day7_part2 PROPERTY CXX_STANDARD 17)
+target_compile_options(day7_part2 PUBLIC $<$<CXX_COMPILER_ID:MSVC>: /permissive->)
