@@ -25,6 +25,8 @@ public:
 
     constexpr bool isGoingToDuplicate () const { return timeLeftBeforeDuplicating == 0 ; }
 
+    constexpr int getTimeLeftBeforeDuplicating () const { return timeLeftBeforeDuplicating; }
+
 private:
     int timeLeftBeforeDuplicating{8};
 };
@@ -60,8 +62,33 @@ void firstPart()
     std::cout << "The solution is: " << fishes.size() << std::endl;
 }
 
+void secondPart_Solution1()
+{
+    std::array<size_t, 9> sortedFishes{0};
+    for(auto i=0; i<sortedFishes.size(); ++i)
+    {
+        sortedFishes[i] = std::count_if(std::begin(input_lines), std::end(input_lines), [i](const auto& fish){ return fish.getTimeLeftBeforeDuplicating () == i; });
+    }
+
+    for(auto i=0; i<256; ++i)
+    {
+        std::array<size_t, 9> nextDaySortedFishes{0};
+        nextDaySortedFishes[6] += sortedFishes.front();
+        nextDaySortedFishes[8] += sortedFishes.front();
+        for(auto i=1; i<sortedFishes.size(); ++i)
+        {
+            nextDaySortedFishes[i-1] += sortedFishes[i];
+        }
+        sortedFishes = nextDaySortedFishes;
+    }
+
+    const auto numberOfFishes = std::accumulate(std::begin(sortedFishes), std::end(sortedFishes), size_t{0});
+    std::cout << "The solution is: " << numberOfFishes << std::endl;
+}
+
 int main()
 {
     firstPart();
+    secondPart_Solution1();
     return 0;
 }
