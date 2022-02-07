@@ -62,7 +62,7 @@ void firstPart()
     std::cout << "The solution is: " << fishes.size() << std::endl;
 }
 
-void secondPart_Solution1()
+void secondPart()
 {
     std::array<size_t, 9> sortedFishes{0};
     for(auto i=0; i<sortedFishes.size(); ++i)
@@ -89,6 +89,6 @@ void secondPart_Solution1()
 int main()
 {
     firstPart();
-    secondPart_Solution1();
+    secondPart();
     return 0;
 }
