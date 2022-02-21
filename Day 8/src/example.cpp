@@ -35,7 +35,7 @@ public:
     constexpr bool isNumber0_6_or_9() const { return message.size() == 6; }
     constexpr bool isNumber2_3_or_5() const { return message.size() == 5; }
 
-//private:
+private:
     std::string_view message;
 };
 
