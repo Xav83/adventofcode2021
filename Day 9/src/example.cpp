@@ -51,8 +51,57 @@ void firstPart()
     std::cout << "The solution is: " << sumOfRiskLevels << std::endl;
 }
 
+struct Position
+{
+    constexpr bool operator==(const Position& other) const { return x == other.x and y == other.y; }
+
+    size_t x{0}, y{0};
+};
+
+void basinExploration(const Input& input, std::vector<Position>& alreadyVisitedPosition, const Position& currentPosition)
+{
+    if(std::any_of(std::begin(alreadyVisitedPosition), std::end(alreadyVisitedPosition), [&currentPosition](const auto& position){ return position == currentPosition; })
+       or input[currentPosition.x][currentPosition.y] == 9)
+    {
+        return;
+    }
+    alreadyVisitedPosition.push_back(currentPosition);
+
+    if(currentPosition.x != 0) { basinExploration(input, alreadyVisitedPosition, {currentPosition.x-1, currentPosition.y}); }
+    if(currentPosition.y != 0) { basinExploration(input, alreadyVisitedPosition, {currentPosition.x, currentPosition.y-1}); }
+    if(currentPosition.x != input.size()-1) { basinExploration(input, alreadyVisitedPosition, {currentPosition.x+1, currentPosition.y}); }
+    if(currentPosition.y != input.front().size()-1) { basinExploration(input, alreadyVisitedPosition, {currentPosition.x, currentPosition.y+1}); }
+}
+
+int getBasinSize(const Input& input, const Position& lowPointPosition)
+{
+    std::vector<Position> alreadyVisitedPosition;
+    basinExploration(input, alreadyVisitedPosition, {lowPointPosition.x, lowPointPosition.y});
+    return alreadyVisitedPosition.size();
+}
+
+void secondPart()
+{
+    std::vector<int> basinSizes;
+    for(size_t i=0; i<input.size(); ++i)
+    {
+        for(size_t j=0; j<input[i].size(); ++j)
+        {
+            if(isLowPoint(input, i, j))
+            {
+                basinSizes.emplace_back(getBasinSize(input, {i, j}));
+            }
+        }
+    }
+
+    std::sort(std::begin(basinSizes), std::end(basinSizes));
+    const auto result = basinSizes[basinSizes.size() - 1] * basinSizes[basinSizes.size() - 2] * basinSizes[basinSizes.size() - 3];
+    std::cout << "The solution is: " << result << std::endl;
+}
+
 int main()
 {
     firstPart();
+    secondPart();
     return 0;
 }
