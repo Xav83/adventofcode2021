@@ -28,7 +28,7 @@ constexpr char getMatchingCharacterOf(char c)
     return '\0';
 }
 
-constexpr int getCharacterScore(char c)
+constexpr int getCharacterScoreOfCorruptedLines(char c)
 {
     if(c == ')') { return 3; }
     if(c == ']') { return 57; }
@@ -69,7 +69,7 @@ void firstPart()
                 openChunks.pop();
                 continue;
             }
-            score += getCharacterScore(character);
+            score += getCharacterScoreOfCorruptedLines(character);
             break;
         }
     }
@@ -77,8 +77,57 @@ void firstPart()
     std::cout << "The solution is: " << score << std::endl;
 }
 
+constexpr int getCharacterScoreOfIncompleteLines(char c)
+{
+    if(c == ')') { return 1; }
+    if(c == ']') { return 2; }
+    if(c == '}') { return 3; }
+    if(c == '>') { return 4; }
+    assert(false);
+    return 0;
+}
+
+void secondPart()
+{
+    std::vector<int> scores;
+    for(const auto& line : input)
+    {
+        std::stack<char> openChunks;
+        bool isCorruptedLine{false};
+        for(const auto& character : line)
+        {
+            if(isOpeningCharacter(character))
+            {
+                openChunks.push(character);
+                continue;
+            }
+            if(openChunks.top() == getMatchingCharacterOf(character))
+            {
+                openChunks.pop();
+                continue;
+            }
+            isCorruptedLine = true;
+            break;
+        }
+        if(not isCorruptedLine)
+        {
+            auto lineScore{0};
+            while (not openChunks.empty())
+            {
+                lineScore = lineScore * 5 + getCharacterScoreOfIncompleteLines(getMatchingCharacterOf(openChunks.top()));
+                openChunks.pop();
+            }
+            scores.push_back(lineScore);
+        }
+    }
+    std::sort(std::begin(scores), std::end(scores));
+
+    std::cout << "The solution is: " << scores[scores.size() / 2] << std::endl;
+}
+
 int main()
 {
     firstPart();
+    secondPart();
     return 0;
 }
