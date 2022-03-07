@@ -178,8 +178,6 @@ int main()
     }
     std::sort(std::begin(scores), std::end(scores));
 
-    std::cout << "Score size: " << scores.size() << std::endl;
-    std::cout << "Index: " << scores.size() / 2 << std::endl;
     std::cout << "The solution is: " << scores[scores.size() / 2] << std::endl;
     return 0;
 }
